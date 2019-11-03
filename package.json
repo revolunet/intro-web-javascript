@@ -1,0 +1,16 @@
+{
+  "name": "intro-web-javascript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "mdx-deck": "^3.0.13"
+  },
+  "scripts": {
+    "start": "mdx-deck deck.mdx",
+    "build": "mdx-deck build deck.mdx"
+  },
+  "dependencies": {
+    "react-syntax-highlighter": "^11.0.2"
+  }
+}

@@ -1,0 +1,349 @@
+import { useState } from "react";
+import { Notes, Image } from "mdx-deck";
+
+import Highlight from "./Highlight";
+import theme from "./theme";
+
+export const themes = [theme];
+
+import imageInternet1 from "./static/physical-layer.gif";
+import imageInternet2 from "./static/explications_serveur_dns.png";
+import imageInternet3 from "./static/browser-network.jpg";
+import imageInternet4 from "./static/submarine-map.png";
+import quizzWorkflow from "./static/quizz-workflow.png";
+import quizzScreens from "./static/quizz-screens.png";
+import lego from "./static/legos.png";
+import react1 from "./static/state_props.png";
+import react2 from "./static/rendering.png";
+import cable from "./static/cable.jpg";
+
+# Intro to web and JavaScript
+
+---
+
+# Plan
+
+#### internet, Web
+
+#### browsers
+
+#### web programming
+
+#### hands-on JavaScript
+
+---
+
+# Conventions & standards
+
+# rulez computers
+
+---
+
+## Internet : the physical layer
+
+IP-address based paquet transport
+
+<img style={{ marginTop: 40 }} src={imageInternet1} />
+
+> 3B internet citizens, +750M routers
+
+---
+
+## Internet : the physical layer
+
+Connecting people at light-speed
+
+<img style={{ marginTop: 40 }} src={imageInternet4} />
+
+> +450 cables, +99% of intercontinental traffic
+
+---
+
+## Internet : the physical layer
+
+Optic fiber FTW
+
+<img style={{ marginTop: 40 }} src={cable} />
+
+> Up to 60Tb/s per cable (Google Dunant)
+
+> 500x wikipedia / second
+
+---
+
+## Web
+
+> Built on top of Internet
+
+<img style={{ marginTop: 40 }} src={imageInternet2} />
+
+> Browsers interact with servers using URLs and HTTPs
+
+---
+
+## HTML
+
+User asks for https://cnn.com :
+
+> GET / 151.101.1.67 host=cnn.com
+
+Server returns html index HTML :
+
+<Highlight language="html">
+  {`<html>
+  <head>
+    <title>CNN.com</title>
+    <script src="/static/app.js"></script>
+    <link rel="stylesheet" href="/static/styles.css"/>
+  </head>
+  <body>
+    Page de CNN <img src="/static/logo.png"/>
+  </body>
+</html>
+`}
+</Highlight>
+
+When browser gets this page from the CNN server, it also download additionnal assets :
+
+- stylesheets : CSS
+- application code : JavaScript
+- assets : images, video...
+
+To display this HTML, the browser will make minimum 4 requests to cnn.com
+
+---
+
+## Browsers
+
+- can execute code sent from the server (your code!)
+- can communicate with various servers (APIs)
+- are awesome execution environments (perfs, security, features...)
+- are awesome debug environments (devtools: inspect, console, network...)
+
+<img style={{ marginTop: 40 }} src={imageInternet3} />
+
+---
+
+## Programming
+
+### Standards and conventions everywhere
+
+- data: CSV, JSON, YAML, XML...
+- languages : JavaScript, Python, PHP, HTML...
+- colors : RGB, Hex, HSL, Pantone...
+- versionning, styles de code/commits
+
+| Name     | value          |
+| -------- | -------------- |
+| Red RGB  | rgb(255,0,0)   |
+| Red RGBA | rgb(255,0,0,1) |
+| Red hexa | #ff0000        |
+
+### 3 techs in the browser
+
+- **HTML** : page structure + metas
+- **CSS** : page and components style
+- **JavaScript** : UI interactions, API calls...
+
+---
+
+## Programming
+
+#### Structures de données (ex: YAML)
+
+<Highlight language="yml">
+  {`- title: En quelle année à été crée TCP-IP ?
+  validAnswer: 1973
+  answers:
+    - 1981
+    - 1973
+    - 1967
+- title: Qui a crée le 1er programme informatique ?
+  validAnswer: Ada Lovelace
+  answers:
+    - Ada Lovelace
+    - Alan Turing
+    - Charles Babbage
+`}
+</Highlight>
+
+#### Instructions (ex: JavaScript)
+
+<Highlight language="javascript">{`// declaration de variable (constante)
+const truth = 42;
+// fonction qui verifie si une réponse donnée est valide
+const isValidAnswer = (question, answer) => {
+  const isValid = answer === question.validAnswer;
+  if (isValid) {
+    return true;
+  }
+  return false;
+}
+// peut aussi s'écrire ainsi :
+const isValidAnswer = (question, answer) => answer === question.validAnswer;
+//
+// appel de la fonction
+isValidAnswer(question1, 1973); // true
+isValidAnswer(question1, 1984); // false
+`}</Highlight>
+
+---
+
+## A quizz browser game
+
+### Requirements :
+
+- Load questions from a YML database
+- User picks a list of possible answers until correct
+- Display score in continuous
+- Repeat until all questions answered
+
+> Draft the first minimal UX/UI on paper
+
+<img style={{ marginTop: 40 }} src={quizzScreens} />
+
+---
+
+## A quizz browser game
+
+### Workflow
+
+<img style={{ marginTop: 40 }} src={quizzWorkflow} />
+
+---
+
+## A quizz browser game
+
+### Tools
+
+- HTML : basic structure and text
+- Bootstrap CSS : for [UI components](https://getbootstrap.com/docs/4.1/components/buttons/)
+- JavaScript : logic, components definition
+- CodeSandbox.io : online code editor
+
+### React
+
+- Produces and manage HTML and CSS with JavaScript
+- Make components reusable
+- Small API and Ggreat officiel tutos
+- Learn once, use everywhere
+
+<img style={{ marginTop: 40 }} src={lego} />
+
+---
+
+# React
+
+Components gets `props` from parent component and can have internal `state`
+
+<img style={{ marginBottom: 40 }} src={react1} />
+
+When the component state changes, it rerenders itself and all its `children`
+
+<img style={{ marginTop: 40 }} src={react2} />
+
+---
+
+# Instructions 1/3
+
+> Create dumb HTML components
+
+1. Fork : https://codesandbox.io/s/quizz-start-qd116
+2. Create a `<Question/>` component using bootstrap CSS
+
+<Highlight language="jsx">{`// example
+const Question = ({ title, answers }) => {
+  return <div>{title}</div> // return the correct html
+}
+// usage with some data
+const answers = [4, 5, 6]
+return <Question title="Combien font 2 + 3 ?" answers={answers}/>
+`}</Highlight>
+
+3. Give the `<Question/>` component a question from the YAML
+
+<Highlight language="jsx">{`// take the first item of the questions array
+const question = questions[0];
+// use "spread" (...) to pass properties to the Question component
+return <Question {...question}/>`}</Highlight>
+
+##### Help
+
+- [JavaScript types](https://developer.mozilla.org/fr/docs/Web/JavaScript/Structures_de_donn%C3%A9es)
+- [Array.map](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/map)
+- [Spread operator](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Syntaxe_d%C3%A9composition)
+- [Bootstrap doc](http://getbootstrap.com/docs/4.1/components/)
+
+---
+
+# Instructions 2/3
+
+> Add state and compose components
+
+1. In the `<Question/>` component, call `onAnswerClick` with the answer when some answer is clicked
+
+2) Create a `<QuestionState/>` component that will :
+
+- display the question with previously crafted `<Question/>`
+- handle answers clicks and check their validity
+- update internal state and display win status
+
+<Highlight language="javascript">{`// handle the question state : show single question and confirmation screen.
+const QuestionState = props => {
+  const [winStatus, setWinStatus] = useState(null);
+  const onAnswerClick = answer => {
+    // check answer validity
+    // use setWinState to update internal state
+  };
+  // display correct screen
+  if (winStatus === null) {
+    return <Question {...props} onAnswerClick={onAnswerClick}/>;
+    // if clicked correct answer
+  } else if (winStatus === true) {
+    return "👍"
+    // if clicked incorrect answer
+  } else if (winStatus === false) {
+    return "👎"
+  }
+}
+`}</Highlight>
+
+##### Help
+
+- [useState](https://fr.reactjs.org/docs/hooks-state.html)
+
+---
+
+# Instructions 3/3
+
+1. Add a `<Quizz/>` component, handle question change using `useState`
+
+<Highlight language="javascript">{`// example
+const Quizz = ({ questions }) => {
+  // create an internal state that will handle questionIndex and UI updates
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const question = questions[questionsIndex];
+  // onNextQuestion: change state to next question
+  const onNextQuestion = () => setQuestionIndex(questionIndex + 1);
+  return <Question {...question} onNextQuestion={onNextQuestion}/>;
+}
+`}</Highlight>
+
+2. Handle scoring with an internal state and add a `<Progress/>` component
+3. Add an Introduction screen
+4. Add a final screen with score and custom message
+
+---
+
+# Ressources
+
+## Examples
+
+- initial game : https://codesandbox.io/s/quizz-start-qd116
+- full game : https://codesandbox.io/s/quizz-full-0gf3e
+
+## Learn
+
+- https://fr.reactjs.org/tutorial/tutorial.html
+- https://wizardzines.com
+- https://github.com/sudheerj/reactjs-interview-questions
