@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "mdx-deck deck.mdx",
-    "build": "mdx-deck build deck.mdx"
+    "build": "mdx-deck build deck.mdx && cp _redirects ./public/"
   },
   "dependencies": {
     "react-syntax-highlighter": "^11.0.2"
