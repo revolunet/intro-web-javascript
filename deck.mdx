@@ -16,8 +16,11 @@ import lego from "./static/legos.png";
 import react1 from "./static/state_props.png";
 import react2 from "./static/rendering.png";
 import cable from "./static/cable.jpg";
+import programming from "./static/programming.gif";
 
 # Intro to web and JavaScript
+
+## 👉 [intro-web-javascript.netlify.com](https://intro-web-javascript.netlify.com) 👈
 
 ---
 
@@ -202,6 +205,8 @@ isValidAnswer(question1, 1984); // false
 
 <img style={{ marginTop: 40 }} src={quizzScreens} />
 
+[demo](https://0gf3e.csb.app/)
+
 ---
 
 ## A quizz browser game
@@ -223,9 +228,9 @@ isValidAnswer(question1, 1984); // false
 
 ### React
 
+- Use JavaScript standards, small API + great officiel tutos
 - Produces and manage HTML and CSS with JavaScript
 - Make components reusable
-- Small API and Ggreat officiel tutos
 - Learn once, use everywhere
 
 <img style={{ marginTop: 40 }} src={lego} />
@@ -241,6 +246,12 @@ Components gets `props` from parent component and can have internal `state`
 When the component state changes, it rerenders itself and all its `children`
 
 <img style={{ marginTop: 40 }} src={react2} />
+
+---
+
+# Let's have some fun
+
+<img style={{ marginTop: 40 }} src={programming} />
 
 ---
 
@@ -296,15 +307,14 @@ const QuestionState = props => {
     // use setWinState to update internal state
   };
   // display correct screen
-  if (winStatus === null) {
-    return <Question {...props} onAnswerClick={onAnswerClick}/>;
-    // if clicked correct answer
-  } else if (winStatus === true) {
+  if (winStatus === true) {
     return "👍"
     // if clicked incorrect answer
   } else if (winStatus === false) {
     return "👎"
   }
+  // not clicked yet
+  return <Question {...props} onAnswerClick={onAnswerClick}/>;
 }
 `}</Highlight>
 
@@ -336,6 +346,8 @@ const Quizz = ({ questions }) => {
 ---
 
 # Ressources
+
+This slidedeck : https://github.com/revolunet/intro-web-javascript
 
 ## Examples
 
