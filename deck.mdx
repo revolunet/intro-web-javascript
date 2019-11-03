@@ -223,12 +223,12 @@ isValidAnswer(question1, 1984); // false
 
 - HTML : basic structure and text
 - Bootstrap CSS : for [UI components](https://getbootstrap.com/docs/4.1/components/buttons/)
-- JavaScript : logic, components definition
+- JavaScript : interactions, logic, components definition
 - CodeSandbox.io : online code editor
 
 ### React
 
-- Use JavaScript standards, small API + great officiel tutos
+- Use JavaScript standards, small API + great official doc
 - Produces and manage HTML and CSS with JavaScript
 - Make components reusable
 - Learn once, use everywhere
@@ -293,7 +293,9 @@ return <Question {...question}/>`}</Highlight>
 
 1. In the `<Question/>` component, call `onAnswerClick` with the answer when some answer is clicked
 
-2) Create a `<QuestionState/>` component that will :
+<Highlight language="javascript">{`<button onClick={() => onAnswerClick(answer)}>{answer}</button>`}</Highlight>
+
+2. Create a `<QuestionState/>` component that will :
 
 - display the question with previously crafted `<Question/>`
 - handle answers clicks and check their validity
@@ -308,17 +310,15 @@ const QuestionState = props => {
   };
   // display correct screen
   if (winStatus === true) {
-    return "👍"
+    return <div>👍</div>
     // if clicked incorrect answer
   } else if (winStatus === false) {
-    return "👎"
+    return <div>👎</div>
   }
   // not clicked yet
   return <Question {...props} onAnswerClick={onAnswerClick}/>;
 }
 `}</Highlight>
-
-##### Help
 
 - [useState](https://fr.reactjs.org/docs/hooks-state.html)
 
@@ -341,7 +341,7 @@ const Quizz = ({ questions }) => {
 
 2. Handle scoring with an internal state and add a `<Progress/>` component
 3. Add an Introduction screen
-4. Add a final screen with score and custom message
+4. Add a final screen with score and custom message based on score
 
 ---
 
