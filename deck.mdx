@@ -17,10 +17,13 @@ import react1 from "./static/state_props.png";
 import react2 from "./static/rendering.png";
 import cable from "./static/cable.jpg";
 import programming from "./static/programming.gif";
+import devtools from "./static/devtools.png";
 
 # Intro to web and JavaScript
 
 ## 👉 [intro-web-javascript.netlify.com](https://intro-web-javascript.netlify.com) 👈
+
+<Notes>Only visible in presenter mode</Notes>
 
 ---
 
@@ -38,7 +41,9 @@ import programming from "./static/programming.gif";
 
 # Conventions & standards
 
-# rulez computers
+### networks, alphabets, languages,
+
+### time, numbers, colors...
 
 ---
 
@@ -46,9 +51,13 @@ import programming from "./static/programming.gif";
 
 IP-address based paquet transport
 
+> SRC: 86.247.254.178 &nbsp; &nbsp; DST: 101.151.1.67 &nbsp; &nbsp; DATA:0010001010001001111100...
+
 <img style={{ marginTop: 40 }} src={imageInternet1} />
 
-> 3B internet citizens, +750M routers
+> 3B internet citizens, +750M routers, 4,3B IPv4 addresses
+
+> IPv6 migration vital [cf ARCEP](https://www.arcep.fr/la-regulation/grands-dossiers-internet-et-numerique/lipv6/suivi-epuisement-adresses-ipv4.html)
 
 ---
 
@@ -86,7 +95,7 @@ Optic fiber FTW
 
 ## HTML
 
-User asks for https://cnn.com :
+Browser asks for https://cnn.com :
 
 > GET / 151.101.1.67 host=cnn.com
 
@@ -101,16 +110,16 @@ Server returns html index HTML :
   </head>
   <body>
     Page de CNN <img src="/static/logo.png"/>
+    <div class="article">article 1</div>
+    <div class="pub">Pub pour un truc</div>
+    <div class="pub">Pub pour un truc</div>
+    <div class="pub">Pub pour un truc</div>
   </body>
 </html>
 `}
 </Highlight>
 
-When browser gets this page from the CNN server, it also download additionnal assets :
-
-- stylesheets : CSS
-- application code : JavaScript
-- assets : images, video...
+When browser gets this page from the CNN server, it also download linked assets : external CSS, JavaScripts, images, videos...
 
 To display this HTML, the browser will make minimum 4 requests to cnn.com
 
@@ -120,10 +129,10 @@ To display this HTML, the browser will make minimum 4 requests to cnn.com
 
 - can execute code sent from the server (your code!)
 - can communicate with various servers (APIs)
-- are awesome execution environments (perfs, security, features...)
-- are awesome debug environments (devtools: inspect, console, network...)
+- are awesome execution environments (perfs, security, APIs, offline...)
+- devtools are 💛💛💛 (Right-click + Inspect)
 
-<img style={{ marginTop: 40 }} src={imageInternet3} />
+<img style={{ marginTop: 40 }} src={devtools} />
 
 ---
 
@@ -150,9 +159,9 @@ To display this HTML, the browser will make minimum 4 requests to cnn.com
 
 ---
 
-## Programming
+## Programming : data structures
 
-#### Structures de données (ex: YAML)
+#### YML
 
 <Highlight language="yml">
   {`- title: En quelle année à été crée TCP-IP ?
@@ -167,13 +176,53 @@ To display this HTML, the browser will make minimum 4 requests to cnn.com
     - Ada Lovelace
     - Alan Turing
     - Charles Babbage
-`}
+    `}
 </Highlight>
 
-#### Instructions (ex: JavaScript)
+#### JSON
+
+<Highlight language="json">
+  {`[
+  {
+    "title": "En quelle année à été crée TCP-IP ?",
+    "validAnswer": 1973,
+    "answers": [
+      1981,
+      1973,
+      1967
+    ]
+  },
+  {
+    "title": "Qui a crée le 1er programme informatique ?",
+    "validAnswer": "Ada Lovelace",
+    "answers": [
+      "Ada Lovelace",
+      "Alan Turing",
+      "Charles Babbage"
+    ]
+  }
+]`}
+</Highlight>
+
+---
+
+## Programming : instructions
+
+#### JavaScript example
 
 <Highlight language="javascript">{`// declaration de variable (constante)
+// integer
 const truth = 42;
+// list
+const someArray = [ 1, 42, true, false, [ 123, 456, "hello" ] ];
+// object
+const someObject = { name:"Tony", address:"271 Hollywood Avenue", score: 7383 }
+//
+// load an array of questions
+const questions = require("./questions.json");
+// acces 1st question (array are 0-indexed)
+const question1 = questions[0];
+//
 // fonction qui verifie si une réponse donnée est valide
 const isValidAnswer = (question, answer) => {
   const isValid = answer === question.validAnswer;
@@ -188,6 +237,11 @@ const isValidAnswer = (question, answer) => answer === question.validAnswer;
 // appel de la fonction
 isValidAnswer(question1, 1973); // true
 isValidAnswer(question1, 1984); // false
+//
+// appel API
+fetch('https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/?denomination=coca')
+.then(r => r.json())
+.then(data => alert(data.meta.total_results));
 `}</Highlight>
 
 ---
@@ -231,7 +285,7 @@ isValidAnswer(question1, 1984); // false
 - Use JavaScript standards, small API + great official doc
 - Produces and manage HTML and CSS with JavaScript
 - Make components reusable
-- Learn once, use everywhere
+- Learn once, use everywhere : CLI, native, PDF, docx, WebGL...
 
 <img style={{ marginTop: 40 }} src={lego} />
 
@@ -239,17 +293,19 @@ isValidAnswer(question1, 1984); // false
 
 # React
 
+Everything is a component
+
 Components gets `props` from parent component and can have internal `state`
 
 <img style={{ marginBottom: 40 }} src={react1} />
 
-When the component state changes, it rerenders itself and all its `children`
+When the component `state` changes, it rerenders itself and all its `children`
 
 <img style={{ marginTop: 40 }} src={react2} />
 
 ---
 
-# Let's have some fun
+# 🚀 Let's go
 
 <img style={{ marginTop: 40 }} src={programming} />
 
@@ -266,10 +322,10 @@ When the component state changes, it rerenders itself and all its `children`
 const Question = ({ title, answers }) => {
   return <div>{title}</div> // return the correct html
 }
+//
 // usage with some data
-const answers = [4, 5, 6]
-return <Question title="Combien font 2 + 3 ?" answers={answers}/>
-`}</Highlight>
+const answers = [4, 5, 6];
+return <Question title="Combien font 2 + 3 ?" answers={answers}/>`}</Highlight>
 
 3. Give the `<Question/>` component a question from the YAML
 
